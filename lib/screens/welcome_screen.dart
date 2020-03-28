@@ -22,7 +22,9 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
     controller.forward();
     controller.addListener(() {
-      print(controller.value);
+      setState(() {
+        
+      });
     });
   }
 
@@ -61,15 +63,18 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             RoundedButton(
                 color: Colors.lightBlueAccent,
                 title: 'Log In',
-                id: LoginScreen.id),
+                func: () {
+                  Navigator.pushNamed(context, LoginScreen.id);
+                }),
             RoundedButton(
                 color: Colors.blueAccent,
                 title: 'Register',
-                id: RegistrationScreen.id),
+                func: () {
+                  Navigator.pushNamed(context, RegistrationScreen.id);
+                })
           ],
         ),
       ),
     );
   }
 }
-
