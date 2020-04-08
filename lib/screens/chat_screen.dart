@@ -118,7 +118,7 @@ class MessagesStream extends StatelessWidget {
           ));
         }
 
-        final List<DocumentSnapshot> messages = snapshot.data.documents;
+        final messages = snapshot.data.documents.reversed;
         List<MessageBubble> messageBubbles = [];
         for (var message in messages) {
           final String messageText = message.data['text'];
@@ -132,6 +132,7 @@ class MessagesStream extends StatelessWidget {
         }
         return Expanded(
           child: ListView(
+            reverse: true,
             children: messageBubbles,
           ),
         );
@@ -153,11 +154,19 @@ class MessageBubble extends StatelessWidget {
     Color bubbleColor = Colors.lightBlueAccent ;
     Color textColor = Colors.white;
     CrossAxisAlignment bubbleAligment = CrossAxisAlignment.end;
+    BorderRadius bubbleBorder = BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30));
 
    if (!isMe){
      bubbleColor =  Colors.white;
      textColor = Colors.black;
      bubbleAligment = CrossAxisAlignment.start;
+     bubbleBorder =  BorderRadius.only(
+                  topRight: Radius.circular(30),
+                  bottomLeft: Radius.circular(30),
+                  bottomRight: Radius.circular(30));
    }
    return 
     Padding(
@@ -171,10 +180,7 @@ class MessageBubble extends StatelessWidget {
           ),
           Material(
               elevation: 5.0,
-              borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  bottomLeft: Radius.circular(30),
-                  bottomRight: Radius.circular(30)),
+              borderRadius: bubbleBorder,
               color: bubbleColor,
               child: Padding(
                 padding:
