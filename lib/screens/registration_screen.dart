@@ -21,7 +21,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   Widget build(BuildContext context) {
     return ModalProgressHUD(
       inAsyncCall: showSpinner,
-          child: Scaffold(
+      child: Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.0),
@@ -29,9 +29,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Container(
-                height: 200.0,
-                child: Image.asset('images/logo.png'),
+              Flexible(
+                child: Hero(
+                  tag: 'logo',
+                  child: Container(
+                    height: 200.0,
+                    child: Image.asset('images/logo.png'),
+                  ),
+                ),
               ),
               SizedBox(
                 height: 48.0,
@@ -65,15 +70,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       showSpinner = true;
                     });
                     try {
-                      final newUser = await _auth.createUserWithEmailAndPassword(
-                          email: email, password: password);
-                          if (newUser != null){
-                            Navigator.pushNamed(context, ChatScreen.id);
-                          }
+                      final newUser =
+                          await _auth.createUserWithEmailAndPassword(
+                              email: email, password: password);
+                      if (newUser != null) {
+                        Navigator.pushNamed(context, ChatScreen.id);
+                      }
 
-                    setState(() {
-                      showSpinner = false;
-                    });
+                      setState(() {
+                        showSpinner = false;
+                      });
                     } catch (e) {
                       print(e);
                     }
